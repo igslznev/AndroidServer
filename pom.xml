@@ -15,6 +15,7 @@
         <hibernate.version>5.0.2.Final</hibernate.version>
         <mysql-connector-java.version>5.1.23</mysql-connector-java.version>
         <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
+        <jackson-databind.version>2.7.4</jackson-databind.version>
     </properties>
 
     <packaging>war</packaging>
@@ -38,6 +39,14 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>${javax.servlet-version}</version>
         </dependency>
+
+        <!-- JSON Converter -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
 
         <!-- DataBase -->
         <dependency>
