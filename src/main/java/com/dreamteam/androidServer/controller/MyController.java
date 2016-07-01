@@ -1,25 +1,40 @@
 package com.dreamteam.androidServer.controller;
 
 import com.dreamteam.androidServer.entity.MyEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.dreamteam.androidServer.service.MyEntityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MyController {
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @Autowired
+    private MyEntityService service;
+
+    @RequestMapping(value = "/entities", method = RequestMethod.GET)
     @ResponseBody
-    public MyEntity getHello() {
-        return createMyEntity();
+    public List<MyEntity> getAllReminders() {
+        return service.getAll();
     }
 
-    private MyEntity createMyEntity() {
-        MyEntity entity = new MyEntity();
-        entity.setId(1);
-        entity.setName("Vasya");
-
-        return entity;
+    @RequestMapping(value = "/entities/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public MyEntity getReminder(@PathVariable long id) {
+        return service.getByID(id);
     }
+
+    @RequestMapping(value = "/entities", method = RequestMethod.POST)
+    @ResponseBody
+    public MyEntity saveRemider(@RequestBody MyEntity entity) {
+        return service.save(entity);
+    }
+
+    @RequestMapping(value = "/entities/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable long id) {
+        service.remove(id);
+    }
+
 }
